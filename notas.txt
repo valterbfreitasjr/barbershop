@@ -16,3 +16,13 @@ Anotações relevantes referente ao setup modificações no projeto.
 :: Prisma
   - npm i prisma --save-dev
   - npx prisma init --datasource-provider postgresql
+
+  * Para executar arquivos Typescript, precisamos do Ts-Node
+    ==> Criamos no package.json:
+        "prisma": {
+          "seed": "ts-node prisma/seed.ts"
+        },,
+    - npm i -D ts-node
+
+    ==> Para executar o Seed e preencher o banco com as informações:
+      - npx prisma db seed
