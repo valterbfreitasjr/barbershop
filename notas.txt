@@ -39,3 +39,8 @@ Anotações relevantes referente ao setup modificações no projeto.
               "*.ts?(x)": ["eslint --fix", "prettier --write"]
           }
 
+:: Git Commit Message Linter
+  - npm install -D git-commit-msg-linter  ==> Necessário criar o arquivo 'commit-msg' dentro da paste '.husky'
+  inserindo o seguinte comando: 
+      - .git/hooks/commit-msg $1
+  Irá garantir que seja necessário o prefixo baseado no git conventional commit.
