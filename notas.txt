@@ -1,0 +1,18 @@
+Anotações relevantes referente ao setup modificações no projeto.
+
+-- **Next.js**
+- **React.js**
+- **PostgreSQL**
+- **Tailwind CSS**
+- **Prisma**
+- **Node.js**
+- **ShadCN**
+- **TypeScript**
+- **JavaScript**
+
+:: Next 
+  - npx create-next-app@latest nome_do_projeto
+
+:: Prisma
+  - npm i prisma --save-dev
+  - npx prisma init --datasource-provider postgresql
