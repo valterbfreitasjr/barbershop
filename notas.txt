@@ -26,3 +26,16 @@ Anotações relevantes referente ao setup modificações no projeto.
 
     ==> Para executar o Seed e preencher o banco com as informações:
       - npx prisma db seed
+
+:: Git Hooks
+  - Garante que o prettier e o eslint serão executados antes de cada commit, iremos utilizar
+  o 'Husky'.
+    - Install: npm i -D husky lint-staged
+    - npx husky init   ==> Irá criar a pasta '.husky', então iremos editar o arquivo
+    'pre-commit' onde serão executados comandos antes do commit
+
+      - Iremos criar na raíz o arquivo '.lintstagedrc.json' e inserir o seguinte comando:
+          {
+              "*.ts?(x)": ["eslint --fix", "prettier --write"]
+          }
+
