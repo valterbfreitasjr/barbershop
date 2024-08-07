@@ -44,3 +44,20 @@ Anotações relevantes referente ao setup modificações no projeto.
   inserindo o seguinte comando: 
       - .git/hooks/commit-msg $1
   Irá garantir que seja necessário o prefixo baseado no git conventional commit.
+
+:: Next.Config
+
+  - Ctrl P => Next Config , então permitir o hostname das imagens que estão vindo do servidor, o domínio é
+  'utfs.io' como pode ser visto no Seed.ts;
+
+  Adicionar o seguinte código ao arquivo Next.Config:
+
+      images: {
+        remotePatterns: [
+          {
+            hostname: "utfs.io",
+          },
+        ],
+      },
+
+  
