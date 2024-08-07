@@ -11,6 +11,11 @@ import BarberShopItem from "./_components/barbershop-item"
 
 export default async function Home() {
   const barbershops = await db.barbershop.findMany({})
+  const popularBarbershops = await db.barbershop.findMany({
+    orderBy: {
+      name: "asc",
+    },
+  })
 
   return (
     <div>
@@ -19,6 +24,7 @@ export default async function Home() {
         <h2 className="text-xl font-bold">Olá, Valter!</h2>
         <p>Segunda-feira, 05 de agost.</p>
 
+        {/* Busca */}
         <div className="mt-6 flex items-center gap-2">
           <Input placeholder="Faça sua busca..." />
           <Button>
@@ -26,6 +32,55 @@ export default async function Home() {
           </Button>
         </div>
 
+        {/* Busca rápida */}
+        <div className="mt-6 flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
+          <Button className="gap-2" variant="secondary">
+            <Image src="/cabelo.svg" width={16} height={16} alt="Cabelo" />
+            Cabelo
+          </Button>
+
+          <Button className="gap-2" variant="secondary">
+            <Image src="/barba.svg" width={16} height={16} alt="Barba" />
+            Barba
+          </Button>
+
+          <Button className="gap-2" variant="secondary">
+            <Image
+              src="/acabamento.svg"
+              width={16}
+              height={16}
+              alt="Acabamento"
+            />
+            Acabamento
+          </Button>
+
+          <Button className="gap-2" variant="secondary">
+            <Image src="/massagem.svg" width={16} height={16} alt="Massagem" />
+            Massagem
+          </Button>
+
+          <Button className="gap-2" variant="secondary">
+            <Image
+              src="/hidratacao.svg"
+              width={16}
+              height={16}
+              alt="Hidração"
+            />
+            Hidratação
+          </Button>
+
+          <Button className="gap-2" variant="secondary">
+            <Image
+              src="/sobrancelha.svg"
+              width={16}
+              height={16}
+              alt="Sobrancelha"
+            />
+            Sobrancelha
+          </Button>
+        </div>
+
+        {/* Image banner */}
         <div className="relative mt-6 h-[150px] w-full">
           <Image
             src="/banner-01.png"
@@ -35,6 +90,7 @@ export default async function Home() {
           />
         </div>
 
+        {/* Agendamentos */}
         <Card className="mt-6">
           <CardContent className="flex justify-between p-0">
             <div className="flex flex-col gap-2 py-5 pl-5">
@@ -55,6 +111,7 @@ export default async function Home() {
           </CardContent>
         </Card>
 
+        {/* Recomendados */}
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
           Recomendados
         </h2>
@@ -63,7 +120,21 @@ export default async function Home() {
             <BarberShopItem barbershop={barbershop} key={barbershop.id} />
           ))}
         </div>
+
+        {/* Populares */}
+        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+          Populares
+        </h2>
+        <div className="flex gap-4 overflow-scroll [&::-webkit-scrollbar]:hidden">
+          {popularBarbershops.map((popularBarbershop) => (
+            <BarberShopItem
+              barbershop={popularBarbershop}
+              key={popularBarbershop.id}
+            />
+          ))}
+        </div>
       </div>
+      {/* Footer - criado componente e inserido no layout, pois será utilizado por toda a aplicação. */}
     </div>
   )
 }
