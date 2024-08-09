@@ -10,6 +10,7 @@ import {
   StarIcon,
 } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 import { notFound } from "next/navigation"
 
 interface BarbershopPageProps {
@@ -46,13 +47,15 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
           fill
           className="object-cover"
         />
-        <Button
-          size="icon"
-          className="absolute left-4 top-4"
-          variant="secondary"
-        >
-          <ChevronLeft />
-        </Button>
+        <Link href="/">
+          <Button
+            size="icon"
+            className="absolute left-4 top-4"
+            variant="secondary"
+          >
+            <ChevronLeft />
+          </Button>
+        </Link>
 
         <Button
           size="icon"
