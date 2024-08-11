@@ -21,7 +21,7 @@ export default async function Home() {
       <Header />
       <div className="p-5">
         <h2 className="text-xl font-bold">Olá, Valter!</h2>
-        <p>Segunda-feira, 05 de agost.</p>
+        <p>Sábado, 10 de agosto.</p>
 
         {/* Busca */}
         <div className="mt-6 flex items-center gap-2">
