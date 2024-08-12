@@ -61,9 +61,9 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
               className="absolute right-4 top-4"
             >
               <MenuIcon />
-              <SidebarSheet />
             </Button>
           </SheetTrigger>
+          <SidebarSheet />
         </Sheet>
       </div>
 

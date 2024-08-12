@@ -14,13 +14,14 @@ const SidebarSheet = () => {
         <SheetTitle className="text-left">Menu</SheetTitle>
       </SheetHeader>
       <div className="flex items-center gap-3 py-5">
-        <Avatar>
+        <h2 className="text-lg font-bold">Olá, faça seu login!</h2>
+        {/* <Avatar>
           <AvatarImage src="https://avatars.githubusercontent.com/u/97262966?s=96&v=4" />
         </Avatar>
         <div>
           <p className="font-bold">Valter B. Freitas Jr.</p>
           <p className="text-xs">devjuninho.com.br</p>
-        </div>
+        </div> */}
       </div>
 
       <div className="py5 border-b border-solid" />

@@ -15,9 +15,9 @@ const Header = () => {
           <SheetTrigger asChild>
             <Button>
               <MenuIcon />
-              <SidebarSheet />
             </Button>
           </SheetTrigger>
+          <SidebarSheet />
         </Sheet>
       </CardContent>
     </Card>
