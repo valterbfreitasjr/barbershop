@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "./ui/button"
 import { Calendar, LogInIcon, LogOutIcon } from "lucide-react"
 import { SheetClose, SheetContent, SheetHeader, SheetTitle } from "./ui/sheet"
@@ -14,8 +16,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "./ui/dialog"
+import { signIn } from "next-auth/react"
 
 const SidebarSheet = () => {
+  const handleClickLoginWithGoogle = async () => {
+    signIn("google")
+  }
+
   return (
     <SheetContent>
       <SheetHeader>
@@ -25,7 +32,7 @@ const SidebarSheet = () => {
         <h2 className="font-bold">Olá, faça seu login!</h2>
         <Dialog>
           <DialogTrigger asChild>
-            <Button size={"icon"}>
+            <Button size={"icon"} onClick={handleClickLoginWithGoogle}>
               <LogInIcon />
             </Button>
           </DialogTrigger>
