@@ -16,12 +16,8 @@ model User {
   accounts      Account[]
   sessions      Session[]
   bookings      Booking[]
-
-  // Optional for WebAuthn support
-  Authenticator Authenticator[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
 
 model Account {
@@ -63,63 +59,36 @@ model VerificationToken {
   @@id([identifier, token])
 }
 
-// Optional for WebAuthn support
-model Authenticator {
-  credentialID         String  @unique
-  userId               String
-  providerAccountId    String
-  credentialPublicKey  String
-  counter              Int
-  credentialDeviceType String
-  credentialBackedUp   Boolean
-  transports           String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@id([userId, credentialID])
-}
-
 model Barbershop {
-  id          String   @id @default(uuid())
+  id          String              @id @default(uuid())
   name        String
   address     String
   phones      String[]
   description String
   imageUrl    String
-
-  services BarbershopService[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  services    BarbershopService[]
 }
 
 model BarbershopService {
-  id          String  @id @default(uuid())
-  name        String
-  description String
-  imageUrl    String
-  price       Decimal @db.Decimal(10, 2)
-
-  bookings Booking[]
-
+  id           String     @id @default(uuid())
+  name         String
+  description  String
+  imageUrl     String
+  price        Decimal    @db.Decimal(10, 2)
   barbershopId String
   barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  bookings     Booking[]
 }
 
 model Booking {
-  id String @id @default(uuid())
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
-
+  id        String            @id @default(uuid())
+  userId    String
+  user      User              @relation(fields: [userId], references: [id])
   serviceId String
   service   BarbershopService @relation(fields: [serviceId], references: [id])
-
-  date DateTime
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  date      DateTime
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
 }

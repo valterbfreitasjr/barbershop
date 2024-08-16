@@ -19,9 +19,7 @@ import {
 import { signIn } from "next-auth/react"
 
 const SidebarSheet = () => {
-  const handleClickLoginWithGoogle = async () => {
-    signIn("google")
-  }
+  const handleLoginWithGoogleClick = () => signIn("google")
 
   return (
     <SheetContent>
@@ -32,7 +30,7 @@ const SidebarSheet = () => {
         <h2 className="font-bold">Olá, faça seu login!</h2>
         <Dialog>
           <DialogTrigger asChild>
-            <Button size={"icon"} onClick={handleClickLoginWithGoogle}>
+            <Button size={"icon"} onClick={handleLoginWithGoogleClick}>
               <LogInIcon />
             </Button>
           </DialogTrigger>
@@ -54,6 +52,7 @@ const SidebarSheet = () => {
             </Button>
           </DialogContent>
         </Dialog>
+
         {/* <Avatar>
           <AvatarImage src="https://avatars.githubusercontent.com/u/97262966?s=96&v=4" />
         </Avatar>
@@ -61,6 +60,7 @@ const SidebarSheet = () => {
           <p className="font-bold">Valter B. Freitas Jr.</p>
           <p className="text-xs">devjuninho.com.br</p>
         </div> */}
+        
       </div>
 
       <div className="py5 border-b border-solid" />
