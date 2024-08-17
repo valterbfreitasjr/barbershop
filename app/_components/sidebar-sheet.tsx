@@ -19,9 +19,9 @@ import {
 import { signIn, signOut, useSession } from "next-auth/react"
 
 const SidebarSheet = () => {
-  const {data} = useSession();
+  const { data } = useSession()
   const handleLoginWithGoogleClick = () => signIn("google")
-  const handleLogoutClick = () => signOut();
+  const handleLogoutClick = () => signOut()
 
   return (
     <SheetContent>
@@ -29,8 +29,6 @@ const SidebarSheet = () => {
         <SheetTitle className="text-left">Menu</SheetTitle>
       </SheetHeader>
       <div className="flex items-center justify-between gap-3 py-5">
-        
-
         {data?.user ? (
           <div className="flex items-center gap-2">
             <Avatar>
@@ -70,7 +68,6 @@ const SidebarSheet = () => {
             </Dialog>
           </>
         )}
-        
       </div>
 
       <div className="py5 border-b border-solid" />
@@ -102,7 +99,11 @@ const SidebarSheet = () => {
       </div>
 
       <div className="flex flex-col gap-2 border-b border-solid py-5">
-        <Button className="justify-start gap-2" variant="ghost" onClick={handleLogoutClick}>
+        <Button
+          className="justify-start gap-2"
+          variant="ghost"
+          onClick={handleLogoutClick}
+        >
           <LogOutIcon size={18} />
           Sair da conta
         </Button>
