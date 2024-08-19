@@ -6,6 +6,7 @@ import BarberShopItem from "./_components/barbershop-item"
 import { quicksearchOptions } from "./_constants/searchOptions"
 import BookingItem from "./_components/booking-item"
 import Search from "./_components/search"
+import Link from "next/link"
 
 export default async function Home() {
   const barbershops = await db.barbershop.findMany({})
@@ -28,16 +29,23 @@ export default async function Home() {
         </div>
 
         {/* Busca rápida */}
-        <div className="mt-6 flex gap-3 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
+        <div className="mt-6 flex gap-3 overflow-x-scroll [-ms-overflow-style:none] [scrollbar-width:none] [&::-deliveryTimeMinutes-scrollbar]:hidden">
           {quicksearchOptions.map((opt) => (
-            <Button className="gap-2" variant="secondary" key={opt.title}>
-              <Image
-                src={opt.imageUrl}
-                width={16}
-                height={16}
-                alt={opt.title}
-              />
-              {opt.title}
+            <Button
+              className="gap-2"
+              variant="secondary"
+              key={opt.title}
+              asChild
+            >
+              <Link href={`/barbershops?service=${opt.title}`}>
+                <Image
+                  src={opt.imageUrl}
+                  width={16}
+                  height={16}
+                  alt={opt.title}
+                />
+                {opt.title}
+              </Link>
             </Button>
           ))}
         </div>
@@ -59,7 +67,7 @@ export default async function Home() {
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
           Recomendados
         </h2>
-        <div className="flex gap-4 overflow-scroll [&::-webkit-scrollbar]:hidden">
+        <div className="flex gap-4 overflow-scroll [-ms-overflow-style:none] [scrollbar-width:none] [&::-deliveryTimeMinutes-scrollbar]:hidden">
           {barbershops.map((barbershop) => (
             <BarberShopItem barbershop={barbershop} key={barbershop.id} />
           ))}
@@ -69,7 +77,7 @@ export default async function Home() {
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
           Populares
         </h2>
-        <div className="flex gap-4 overflow-scroll [&::-webkit-scrollbar]:hidden">
+        <div className="flex gap-4 overflow-scroll [-ms-overflow-style:none] [scrollbar-width:none] [&::-deliveryTimeMinutes-scrollbar]:hidden">
           {popularBarbershops.map((popularBarbershop) => (
             <BarberShopItem
               barbershop={popularBarbershop}
