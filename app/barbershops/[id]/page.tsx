@@ -29,10 +29,6 @@ const BarbershopPage = async ({ params }: BarbershopPageProps) => {
     return notFound()
   }
 
-  const handleCopyPhoneClick = (phone: string) => {
-    return navigator.clipboard.writeText(phone)
-  }
-
   return (
     <div>
       {/* IMAGE */}
