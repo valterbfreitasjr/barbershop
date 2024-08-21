@@ -38,6 +38,10 @@ const BarbershopsPage = async ({ searchParams }: BarbershopPageProps) => {
     },
   })
 
+  console.log(
+    `Title: ${searchParams?.title} -- Service: ${searchParams?.service}`,
+  )
+
   return (
     <div>
       <Header />
