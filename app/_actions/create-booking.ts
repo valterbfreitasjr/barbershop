@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache"
 
 interface createBookingParams {
   serviceId: string
+  userId: string
   date: Date
 }
 

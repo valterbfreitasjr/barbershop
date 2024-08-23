@@ -1,6 +1,6 @@
 "use client"
 
-import { Barbershop, BarbershopService, Booking } from "@prisma/client"
+import { Barbershop, BarbershopService } from "@prisma/client"
 import Image from "next/image"
 import { Card, CardContent } from "./ui/card"
 import { Button } from "./ui/button"
@@ -15,12 +15,11 @@ import {
 } from "./ui/sheet"
 import { Calendar } from "./ui/calendar"
 import { ptBR } from "date-fns/locale"
-import { useMemo, useState } from "react"
+import { useState } from "react"
 import { format, set } from "date-fns"
 import { createBooking } from "../_actions/create-booking"
 import { useSession } from "next-auth/react"
 import { toast } from "sonner"
-import { useRouter } from "next/navigation"
 
 interface ServiceItemProps {
   service: BarbershopService
@@ -52,9 +51,6 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
   const [selectedTime, setSelectedTime] = useState<string | undefined>(
     undefined,
   )
-  const router = useRouter()
-  const [dayBookings, setDayBookings] = useState<Booking[]>([])
-  const [bookingSheetIsOpen, setBookingSheetIsOpen] = useState(false)
 
   const handleSelectedDay = (date: Date | undefined) => {
     setSelectedDay(date)
@@ -64,38 +60,26 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
     setSelectedTime(time)
   }
 
-  const handleBookingSheetOpenChange = () => {
-    setSelectedDay(undefined)
-    setSelectedTime(undefined)
-    setDayBookings([])
-    setBookingSheetIsOpen(false)
-  }
-
-  const selectedDate = useMemo(() => {
-    if (!selectedDay || !selectedTime) return
-    return set(selectedDay, {
-      hours: Number(selectedTime?.split(":")[0]),
-      minutes: Number(selectedTime?.split(":")[1]),
-    })
-  }, [selectedDay, selectedTime])
-
   const handleCreateBooking = async () => {
     try {
-      if (!selectedDate) return
+      if (!selectedDay || !selectedTime) return
+
+      const hour = +selectedTime.split(":")[0]
+      const minute = +selectedTime.split(":")[1]
+      const newDate = set(selectedDay, {
+        minutes: minute,
+        hours: hour,
+      })
+
       await createBooking({
         serviceId: service.id,
-        date: selectedDate,
+        userId: "clzw33rdi0000786mr332fljr",
+        date: newDate,
       })
-      handleBookingSheetOpenChange()
-      toast.success("Reserva criada com sucesso!", {
-        action: {
-          label: "Ver agendamentos",
-          onClick: () => router.push("/bookings"),
-        },
-      })
-    } catch (error) {
-      console.error(error)
-      toast.error("Erro ao criar reserva!")
+      toast.success("Reserva criada com sucesso!")
+    } catch (err) {
+      console.log(err)
+      toast.error("Erro ao criar a reserva.")
     }
   }
 
