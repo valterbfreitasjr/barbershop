@@ -51,6 +51,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
   const [selectedTime, setSelectedTime] = useState<string | undefined>(
     undefined,
   )
+  console.log({ data })
 
   const handleSelectedDay = (date: Date | undefined) => {
     setSelectedDay(date)
@@ -64,8 +65,8 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
     try {
       if (!selectedDay || !selectedTime) return
 
-      const hour = +selectedTime.split(":")[0]
-      const minute = +selectedTime.split(":")[1]
+      const hour = Number(selectedTime.split(":")[0])
+      const minute = Number(selectedTime.split(":")[1])
       const newDate = set(selectedDay, {
         minutes: minute,
         hours: hour,
@@ -73,7 +74,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
       await createBooking({
         serviceId: service.id,
-        userId: "clzw33rdi0000786mr332fljr",
+        userId: (data?.user as any).id,
         date: newDate,
       })
       toast.success("Reserva criada com sucesso!")
