@@ -69,7 +69,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
   const [selectedTime, setSelectedTime] = useState<string | undefined>(
     undefined,
   )
-  const [dayBookings, setDayBookings] = useState<Booking[]>()
+  const [dayBookings, setDayBookings] = useState<Booking[]>([])
 
   useEffect(() => {
     const fetch = async () => {
@@ -82,8 +82,6 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
     }
     fetch()
   }, [selectedDay, service.id])
-
-  console.log(dayBookings)
 
   const handleSelectedDay = (date: Date | undefined) => {
     setSelectedDay(date)
@@ -191,7 +189,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
                 {selectedDay && (
                   <div className="flex gap-3 overflow-x-auto border-b border-solid p-5 px-5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-deliveryTimeMinutes-scrollbar]:hidden">
-                    {TIME_LIST.map((time) => (
+                    {getTimeList(dayBookings).map((time) => (
                       <Button
                         key={time}
                         variant={selectedTime === time ? "default" : "outline"}
