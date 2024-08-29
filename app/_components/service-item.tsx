@@ -16,7 +16,7 @@ import {
 import { Calendar } from "./ui/calendar"
 import { ptBR } from "date-fns/locale"
 import { useEffect, useState } from "react"
-import { format, set } from "date-fns"
+import { addDays, format, set } from "date-fns"
 import { createBooking } from "../_actions/create-booking"
 import { useSession } from "next-auth/react"
 import { toast } from "sonner"
@@ -71,6 +71,15 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
   )
   const [dayBookings, setDayBookings] = useState<Booking[]>([])
 
+  const [bookingSheetsIsOpen, setBookingSheetsIsOpen] = useState(false)
+
+  const handleBookingSheetsOpenChange = () => {
+    setSelectedDay(undefined)
+    setSelectedTime(undefined)
+    setDayBookings([])
+    setBookingSheetsIsOpen(false)
+  }
+
   useEffect(() => {
     const fetch = async () => {
       if (!selectedDay) return
@@ -107,6 +116,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
         userId: (data?.user as any).id,
         date: newDate,
       })
+      handleBookingSheetsOpenChange()
       toast.success("Reserva criada com sucesso!")
     } catch (err) {
       console.log(err)
@@ -140,27 +150,32 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
               }).format(Number(service.price))}
             </p>
 
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  className="hover:bg-gray-800"
-                >
-                  Reserva
-                </Button>
-              </SheetTrigger>
+            <Sheet
+              open={bookingSheetsIsOpen}
+              onOpenChange={handleBookingSheetsOpenChange}
+            >
+              <Button
+                variant="secondary"
+                size="sm"
+                className="hover:bg-gray-800"
+                onClick={() => setBookingSheetsIsOpen(true)}
+              >
+                Reserva
+              </Button>
+
               <SheetContent className="px-0">
                 <SheetHeader>
                   <SheetTitle>Fazer reserva</SheetTitle>
                 </SheetHeader>
 
+                {/* TODO - Validar data e horários superiores ao atual */}
                 <div className="border-b border-solid py-5">
                   <Calendar
                     mode="single"
                     locale={ptBR}
                     selected={selectedDay}
                     onSelect={handleSelectedDay}
+                    fromDate={addDays(Date(), 1)}
                     styles={{
                       head_cell: {
                         width: "100%",
