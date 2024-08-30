@@ -60,9 +60,13 @@ const SidebarSheet = () => {
             </Link>
           </Button>
         </SheetClose>
-        <Button className="justify-start gap-2" variant="ghost">
-          <Calendar size={18} /> Agendamentos
-        </Button>
+        {data?.user && (
+          <Button className="justify-start gap-2" variant="ghost" asChild>
+            <Link href={"/bookings"}>
+              <Calendar size={18} /> Agendamentos
+            </Link>
+          </Button>
+        )}
       </div>
 
       <div className="flex flex-col gap-2 border-b border-solid py-5">
