@@ -7,14 +7,31 @@ import { quicksearchOptions } from "./_constants/searchOptions"
 import BookingItem from "./_components/booking-item"
 import Search from "./_components/search"
 import Link from "next/link"
-
+import { getServerSession } from "next-auth"
+import { authOptions } from "./_lib/auth"
 export default async function Home() {
+  const user = await getServerSession(authOptions)
   const barbershops = await db.barbershop.findMany({})
   const popularBarbershops = await db.barbershop.findMany({
     orderBy: {
       name: "asc",
     },
   })
+
+  const bookings = user?.user
+    ? await db.booking.findMany({
+        where: {
+          userId: (user?.user as any).id,
+        },
+        include: {
+          service: {
+            include: {
+              barbershop: true,
+            },
+          },
+        },
+      })
+    : []
 
   return (
     <div>
@@ -61,7 +78,12 @@ export default async function Home() {
         </div>
 
         {/* Agendamentos */}
-        <BookingItem />
+
+        <div>
+          {bookings.map((booking) => (
+            <BookingItem key={booking.id} booking={booking} />
+          ))}
+        </div>
 
         {/* Recomendados */}
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">

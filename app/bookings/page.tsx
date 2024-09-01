@@ -13,7 +13,11 @@ const BookingsPage = async () => {
       userId: (user.user as any).id,
     },
     include: {
-      service: true,
+      service: {
+        include: {
+          barbershop: true,
+        },
+      },
     },
   })
 

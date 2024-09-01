@@ -6,7 +6,11 @@ import { Prisma } from "@prisma/client"
 interface BookingItemProps {
   booking: Prisma.BookingGetPayload<{
     include: {
-      service: true
+      service: {
+        include: {
+          barbershop: true
+        }
+      }
     }
   }>
 }
@@ -20,9 +24,9 @@ const BookingItem = ({ booking }: BookingItemProps) => {
           <h3 className="font-semibold">{booking.service.name}</h3>
           <div className="flex items-center gap-2">
             <Avatar className="h-6 w-6">
-              <AvatarImage src="https://utfs.io/f/c97a2dc9-cf62-468b-a851-bfd2bdde775f-16p.png" />
+              <AvatarImage src={booking.service.barbershop.imageUrl} />
             </Avatar>
-            <p className="text-sm">{booking.service.description}</p>
+            <p className="text-sm">{booking.service.barbershop.name}</p>
           </div>
         </div>
         <div className="flex flex-col items-center justify-center border-l-2 px-5">
