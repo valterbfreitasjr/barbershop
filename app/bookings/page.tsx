@@ -24,13 +24,17 @@ const BookingsPage = async () => {
   return (
     <>
       <Header />
-      <div className="p-5">
-        <h2 className="text-xl font-bold">Agendamentos</h2>
-      </div>
-      <div>
-        {bookings.map((booking) => (
-          <BookingItem key={booking.id} booking={booking} />
-        ))}
+      <div className="my-6 px-5">
+        <div>
+          <h2 className="text-xl font-bold">Agendamentos</h2>
+        </div>
+        <div>
+          {bookings.map((booking) => (
+            <div className="my-3" key={booking.id}>
+              <BookingItem key={booking.id} booking={booking} />
+            </div>
+          ))}
+        </div>
       </div>
     </>
   )
