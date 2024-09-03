@@ -18,10 +18,13 @@ export default async function Home() {
     },
   })
 
-  const bookings = user?.user
+  const confirmedBookings = user?.user
     ? await db.booking.findMany({
         where: {
           userId: (user?.user as any).id,
+          date: {
+            gte: new Date(),
+          },
         },
         include: {
           service: {
@@ -29,6 +32,9 @@ export default async function Home() {
               barbershop: true,
             },
           },
+        },
+        orderBy: {
+          date: "asc",
         },
       })
     : []
@@ -78,14 +84,18 @@ export default async function Home() {
         </div>
 
         {/* Agendamentos */}
-        <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
-          Agendamentos
-        </h2>
-        <div className="flex gap-x-3 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-deliveryTimeMinutes-scrollbar]:hidden">
-          {bookings.map((booking) => (
-            <BookingItem key={booking.id} booking={booking} />
-          ))}
-        </div>
+        {user?.user && (
+          <>
+            <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
+              Agendamentos
+            </h2>
+            <div className="flex gap-x-3 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-deliveryTimeMinutes-scrollbar]:hidden">
+              {confirmedBookings.map((booking) => (
+                <BookingItem key={booking.id} booking={booking} />
+              ))}
+            </div>
+          </>
+        )}
 
         {/* Recomendados */}
         <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
