@@ -241,10 +241,9 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
                   <footer className="mt-5 px-5">
                     <SheetFooter>
-                      <SheetClose>
+                      <SheetClose className="w-full" asChild>
                         <Button
                           type="submit"
-                          className="w-full"
                           onClick={handleCreateBooking}
                           disabled={!selectedDay || !selectedTime}
                         >

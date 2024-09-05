@@ -12,6 +12,8 @@ import {
   SheetTrigger,
 } from "./ui/sheet"
 import Image from "next/image"
+import BookingInfo from "./booking-info"
+import PhoneItem from "./phone-item"
 
 interface BookingItemProps {
   booking: Prisma.BookingGetPayload<{
@@ -67,7 +69,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
           </CardContent>
         </Card>
       </SheetTrigger>
-      <SheetContent>
+      <SheetContent className="w-[90%]">
         <SheetHeader>
           <SheetTitle className="text-left">Informações da reserva</SheetTitle>
         </SheetHeader>
@@ -103,6 +105,22 @@ const BookingItem = ({ booking }: BookingItemProps) => {
         </div>
 
         {/* Service Item - <BookingInfo /> */}
+        <div className="mb-6 mt-3">
+          <BookingInfo
+            barbershop={barbershop}
+            selectedDay={booking.date}
+            service={booking.service}
+            selectedTime={String(
+              format(booking.date, "HH:mm", { locale: ptBR }),
+            )}
+          />
+        </div>
+
+        <div className="space-y-3">
+          {barbershop.phones.map((phone) => (
+            <PhoneItem phone={phone} key={phone} />
+          ))}
+        </div>
       </SheetContent>
     </Sheet>
   )
