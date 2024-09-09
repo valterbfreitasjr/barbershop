@@ -6,7 +6,9 @@ import { Prisma } from "@prisma/client"
 import { ptBR } from "date-fns/locale"
 import {
   Sheet,
+  SheetClose,
   SheetContent,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -14,6 +16,7 @@ import {
 import Image from "next/image"
 import BookingInfo from "./booking-info"
 import PhoneItem from "./phone-item"
+import { Button } from "./ui/button"
 
 interface BookingItemProps {
   booking: Prisma.BookingGetPayload<{
@@ -35,8 +38,8 @@ const BookingItem = ({ booking }: BookingItemProps) => {
 
   return (
     <Sheet>
-      <SheetTrigger className="w-full">
-        <Card>
+      <SheetTrigger className="w-full min-w-[90%]">
+        <Card className="min-w-[90%]">
           <CardContent className="flex justify-between p-0">
             <div className="flex flex-col gap-2 py-5 pl-5">
               <Badge
@@ -102,25 +105,40 @@ const BookingItem = ({ booking }: BookingItemProps) => {
           >
             {isConfirmed ? "Confirmado" : "Finalizado"}
           </Badge>
+
+          {/* Service Item - <BookingInfo /> */}
+          <Card className="mb-6 mt-3">
+            <BookingInfo
+              barbershop={barbershop}
+              selectedDay={booking.date}
+              service={booking.service}
+              selectedTime={String(
+                format(booking.date, "HH:mm", { locale: ptBR }),
+              )}
+            />
+          </Card>
+
+          <div className="space-y-3">
+            {barbershop.phones.map((phone) => (
+              <PhoneItem phone={phone} key={phone} />
+            ))}
+          </div>
         </div>
 
-        {/* Service Item - <BookingInfo /> */}
-        <div className="mb-6 mt-3">
-          <BookingInfo
-            barbershop={barbershop}
-            selectedDay={booking.date}
-            service={booking.service}
-            selectedTime={String(
-              format(booking.date, "HH:mm", { locale: ptBR }),
+        <SheetFooter className="mt-6">
+          <div className="flex w-full items-center gap-3">
+            <SheetClose asChild>
+              <Button variant="outline" className="w-full">
+                Voltar
+              </Button>
+            </SheetClose>
+            {isConfirmed && (
+              <Button variant="destructive" className="w-full">
+                Cancelar reserva
+              </Button>
             )}
-          />
-        </div>
-
-        <div className="space-y-3">
-          {barbershop.phones.map((phone) => (
-            <PhoneItem phone={phone} key={phone} />
-          ))}
-        </div>
+          </div>
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   )
