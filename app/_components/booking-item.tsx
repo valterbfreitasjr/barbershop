@@ -166,11 +166,13 @@ const BookingItem = ({ booking }: BookingItemProps) => {
               </Button>
             </SheetClose>
             <AlertDialog>
-              <AlertDialogTrigger asChild>
-                <Button variant="destructive" className="w-full">
-                  Cancelar reserva
-                </Button>
-              </AlertDialogTrigger>
+              {isConfirmed && (
+                <AlertDialogTrigger asChild>
+                  <Button variant="destructive" className="w-full">
+                    Cancelar reserva
+                  </Button>
+                </AlertDialogTrigger>
+              )}
               <AlertDialogContent className="w-[90%]">
                 <AlertDialogHeader>
                   <AlertDialogTitle>
