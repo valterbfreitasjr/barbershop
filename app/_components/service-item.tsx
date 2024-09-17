@@ -231,11 +231,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
 
                   {selectedDay && (
                     <div className="flex gap-3 overflow-x-auto border-b border-solid p-5 px-5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-deliveryTimeMinutes-scrollbar]:hidden">
-                      {timeList.length === 0 ? (
-                        <p className="text-center text-xs">
-                          Não há horários disponíveis para este dia.
-                        </p>
-                      ) : (
+                      {timeList.length > 0 ? (
                         timeList.map((time) => (
                           <Button
                             key={time}
@@ -248,6 +244,10 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                             {time}
                           </Button>
                         ))
+                      ) : (
+                        <p className=text-center text-xs">
+                          Não há horários disponíveis para este dia.
+                        </p>
                       )}
                     </div>
                   )}

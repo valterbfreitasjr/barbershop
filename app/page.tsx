@@ -43,7 +43,7 @@ export default async function Home() {
     <div>
       <Header />
       <div className="p-5">
-        <h2 className="text-xl font-bold">Olá, Valter!</h2>
+        <h2 className="text-xl font-bold">Olá, ${user?.user?.name}!`}</h2>
         <p>Sábado, 10 de agosto.</p>
 
         {/* Busca */}
