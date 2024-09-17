@@ -245,7 +245,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                           </Button>
                         ))
                       ) : (
-                        <p className=text-center text-xs">
+                        <p className="text-center text-xs">
                           Não há horários disponíveis para este dia.
                         </p>
                       )}
