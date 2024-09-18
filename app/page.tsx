@@ -96,14 +96,17 @@ export default async function Home() {
         </div>
 
         {/* Agendamentos */}
-        {user?.user && (
+        {confirmedBookings.length > 0 && (
           <>
             <h2 className="mb-3 mt-6 text-xs font-bold uppercase text-gray-400">
               Agendamentos
             </h2>
             <div className="flex gap-x-3 overflow-x-auto [-ms-overflow-style:none] [scrollbar-width:none] [&::-deliveryTimeMinutes-scrollbar]:hidden">
               {confirmedBookings.map((booking) => (
-                <BookingItem key={booking.id} booking={booking} />
+                <BookingItem
+                  key={booking.id}
+                  booking={JSON.parse(JSON.stringify(booking))}
+                />
               ))}
             </div>
           </>

@@ -257,7 +257,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                       <BookingInfo
                         selectedDay={selectedDay}
                         selectedTime={selectedTime}
-                        service={service}
+                        service={JSON.parse(JSON.stringify(service))}
                         barbershop={barbershop}
                       />
                     </div>

@@ -144,7 +144,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
             <BookingInfo
               barbershop={barbershop}
               selectedDay={booking.date}
-              service={booking.service}
+              service={JSON.parse(JSON.stringify(booking.service))}
               selectedTime={String(
                 format(booking.date, "HH:mm", { locale: ptBR }),
               )}
