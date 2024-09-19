@@ -143,7 +143,7 @@ const BookingItem = ({ booking }: BookingItemProps) => {
           <Card className="mb-6 mt-3">
             <BookingSummary
               barbershop={barbershop}
-              selectedDate={booking.}
+              selectedDate={booking.date}
               service={JSON.parse(JSON.stringify(booking.service))}
             />
           </Card>

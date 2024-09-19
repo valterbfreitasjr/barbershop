@@ -7,7 +7,6 @@ import { Barbershop, BarbershopService } from "@prisma/client"
 
 interface BookingSummaryProps {
   selectedDate: Date
-
   service: Pick<BarbershopService, "name" | "price">
   barbershop: Pick<Barbershop, "name">
 }
