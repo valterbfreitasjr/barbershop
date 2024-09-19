@@ -5,19 +5,18 @@ import { Card, CardContent } from "./ui/card"
 import { ptBR } from "date-fns/locale"
 import { Barbershop, BarbershopService } from "@prisma/client"
 
-interface BookingInfoProps {
-  selectedDay: Date
-  selectedTime: string
-  service: BarbershopService
+interface BookingSummaryProps {
+  selectedDate: Date
+
+  service: Pick<BarbershopService, "name" | "price">
   barbershop: Pick<Barbershop, "name">
 }
 
-const BookingInfo = ({
-  selectedDay,
-  selectedTime,
+const BookingSummary = ({
   service,
   barbershop,
-}: BookingInfoProps) => {
+  selectedDate,
+}: BookingSummaryProps) => {
   return (
     <Card>
       <CardContent className="space-y-3 p-3">
@@ -34,7 +33,7 @@ const BookingInfo = ({
         <div className="flex items-center justify-between">
           <h2 className="text-sm text-gray-400">Data</h2>
           <p className="text-sm">
-            {format(selectedDay, "d 'de' MMMM", {
+            {format(selectedDate, "d 'de' MMMM", {
               locale: ptBR,
             })}
           </p>
@@ -42,7 +41,7 @@ const BookingInfo = ({
 
         <div className="flex items-center justify-between">
           <h2 className="text-sm text-gray-400">Data</h2>
-          <p className="text-sm">{selectedTime}</p>
+          <p className="text-sm">{format(selectedDate, "HH:mm")}</p>
         </div>
 
         <div className="flex items-center justify-between">
@@ -54,4 +53,4 @@ const BookingInfo = ({
   )
 }
 
-export default BookingInfo
+export default BookingSummary

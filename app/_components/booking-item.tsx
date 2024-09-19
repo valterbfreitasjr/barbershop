@@ -16,7 +16,7 @@ import {
   SheetTrigger,
 } from "./ui/sheet"
 import Image from "next/image"
-import BookingInfo from "./booking-info"
+import BookingSummary from "./booking-summary"
 import PhoneItem from "./phone-item"
 import { Button } from "./ui/button"
 import {
@@ -139,15 +139,12 @@ const BookingItem = ({ booking }: BookingItemProps) => {
             {isConfirmed ? "Confirmado" : "Finalizado"}
           </Badge>
 
-          {/* Service Item - <BookingInfo /> */}
+          {/* Service Item - <BookingSummary /> */}
           <Card className="mb-6 mt-3">
-            <BookingInfo
+            <BookingSummary
               barbershop={barbershop}
-              selectedDay={booking.date}
+              selectedDate={booking.}
               service={JSON.parse(JSON.stringify(booking.service))}
-              selectedTime={String(
-                format(booking.date, "HH:mm", { locale: ptBR }),
-              )}
             />
           </Card>
 
