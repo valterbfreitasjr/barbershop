@@ -26,7 +26,7 @@ const BookingsPage = async () => {
             </h2>
             <div className="my-12">
               <h3 className="text-center text-xs italic text-gray-400">
-                Você não possui agendamentos confirmados.
+                Você não possui agendamentos confirmados!
               </h3>
             </div>
           </>
